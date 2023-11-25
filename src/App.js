@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import {route} from "./general/navigation/router";
 import Navigation from "./general/navigation/Navigation";
-import {getCategories, getRandomCocktail} from "./features/api";
-import {Cocktail} from "./features/Cocktail";
+import {getByCategory, getCategories, getRandomCocktail} from "./features/api";
+import {Cocktail} from "./features/model/Cocktail";
+import CocktailShort from "./features/model/CocktailShort";
 
 class App extends Component {
     constructor(props) {
@@ -10,7 +11,8 @@ class App extends Component {
         this.state = {
             page: 'home',
             currentCocktail: new Cocktail({}),
-            categories: []
+            categories: [],
+            categoryCocktails: [],
         }
     }
 
@@ -21,7 +23,7 @@ class App extends Component {
 
     getRandomCocktailApi() {
         getRandomCocktail().then((result) => {
-            console.log(result);
+            //console.log(result);
             const resObj = JSON.parse(result);
             const newCocktail = new Cocktail(resObj.drinks[0]);
             this.setState({...this.state, currentCocktail: newCocktail});
@@ -30,10 +32,19 @@ class App extends Component {
 
     getCategoriesApi() {
         getCategories().then((result) => {
-            console.log(result);
+            //console.log(result);
             const resObj = JSON.parse(result);
             const categoriesArr = resObj.drinks.map((item) => item.strCategory);
             this.setState({...this.state, categories: categoriesArr});
+        })
+    }
+
+    getByCategoryApi(categoryName){
+        getByCategory(categoryName).then((result)=>{
+            //console.log(result);
+            const resObj = JSON.parse(result);
+            const cocktailList = resObj.drinks.map(item => new CocktailShort(item));
+            this.setState({...this.state, categoryCocktails: cocktailList});
         })
     }
 
@@ -48,7 +59,11 @@ class App extends Component {
                         getRandomCocktail: () => {
                             this.getRandomCocktailApi()
                         }, cocktail: this.state.currentCocktail,
-                        categories: this.state.categories
+                        categories: this.state.categories,
+                        getByCategory: (categoryName) =>{
+                            this.getByCategoryApi(categoryName)
+                        },
+                        categoryCocktails: this.state.categoryCocktails
                     })
                 }
             </div>
