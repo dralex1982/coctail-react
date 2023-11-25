@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import {route, Navigation} from "./router";
+import {route} from "./general/navigation/router";
+import Navigation from "./general/navigation/Navigation";
 import {getCategories, getRandomCocktail} from "./features/api";
 import {Cocktail} from "./features/Cocktail";
 
@@ -13,8 +14,13 @@ class App extends Component {
         }
     }
 
+    componentDidMount() {
+        this.getRandomCocktailApi();
+        this.getCategoriesApi();
+    }
+
     getRandomCocktailApi() {
-        getRandomCocktail().then((result) =>{
+        getRandomCocktail().then((result) => {
             console.log(result);
             const resObj = JSON.parse(result);
             const newCocktail = new Cocktail(resObj.drinks[0]);
@@ -22,12 +28,11 @@ class App extends Component {
         })
     }
 
-    getCategoriesApi(){
-        getCategories().then((result)=>{
+    getCategoriesApi() {
+        getCategories().then((result) => {
             console.log(result);
             const resObj = JSON.parse(result);
-            console.log(resObj)
-            const categoriesArr = resObj.drinks.map((item) =>item.strCategory);
+            const categoriesArr = resObj.drinks.map((item) => item.strCategory);
             this.setState({...this.state, categories: categoriesArr});
         })
     }
@@ -40,13 +45,11 @@ class App extends Component {
                 }}/>
                 {
                     route(this.state.page, {
-                    getRandomCocktail: () => {
-                        this.getRandomCocktailApi()
-                    }, cocktail: this.state.currentCocktail,
-                        getCategories: ()=>{
-                        this.getCategoriesApi()
-                        }, categories: this.state.categories
-                })
+                        getRandomCocktail: () => {
+                            this.getRandomCocktailApi()
+                        }, cocktail: this.state.currentCocktail,
+                        categories: this.state.categories
+                    })
                 }
             </div>
         );
