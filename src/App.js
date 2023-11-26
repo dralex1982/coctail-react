@@ -1,18 +1,18 @@
-import React, {Component} from 'react';
+import React from 'react';
 import Router from "./general/navigation/router";
 import Navigation from "./general/navigation/Navigation";
-import AppContexWrapper from "./general/context/AppContexWrapper";
+import AppContextFWrapper from "./general/context/AppContextFWrapper";
 
-class App extends Component {
-    render() {
-        return (
-            <AppContexWrapper>
-                <Navigation/>
-                <Router/>
-            </AppContexWrapper>
-        );
-    }
+
+function App() {
+    return (
+        <AppContextFWrapper>
+            <Navigation/>
+            <Router/>
+        </AppContextFWrapper>
+    );
 }
+
 export default App;
 
 
