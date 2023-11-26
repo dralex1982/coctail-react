@@ -7,6 +7,7 @@ import {AppContext} from "../../../general/context/context";
 
 const CategoryPage = (props) => {
     const context = useContext(AppContext);
+    const categoryCocktails = context.categoryCocktails;
     return (
         <>
             <H1>Category page</H1>
@@ -23,8 +24,9 @@ const CategoryPage = (props) => {
             }</div>
             <div>
                 {
-                    context.categoryCocktails.map((cocktailShort) => {
-                        return <CocktailShort name={cocktailShort.name}
+                    context.categoryCocktails.map((cocktailShort, index) => {
+                        return <CocktailShort key={index}
+                                              name={cocktailShort.name}
                                               thumb={cocktailShort.thumb}/>
                     })
                 }
