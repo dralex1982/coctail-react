@@ -10,7 +10,7 @@ export const HOME = 'home';
 export const CATEGORY = 'category';
 export const COCKTAIL = 'cocktail'
 export const ERROR = 'error_page';
-// /cocktail?=1234
+// /cocktail?=11007
 
 //changePage(pageName)
 function Router() {

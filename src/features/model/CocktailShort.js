@@ -6,18 +6,22 @@
         }
  */
 
-export default class CocktailShort{
+export default class CocktailShort {
     constructor(data) { // data === json from server
         this._name = data.strDrink;
-        this._thumb = data.strDrinkThumb+'/preview';
+        this._thumb = data.strDrinkThumb + '/preview';
         this._id = data.idDrink;
     }
 
-    get name(){
+    get id() {
+        return this._id;
+    }
+
+    get name() {
         return this._name;
     }
 
-    get thumb(){
+    get thumb() {
         return this._thumb;
     }
 }
