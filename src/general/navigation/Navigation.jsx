@@ -6,13 +6,13 @@ import {AppContext} from "../context/context";
 import {Link, useLocation} from "react-router-dom";
 
 function Navigation() {
-    const  location = useLocation();
-    const context = useContext(AppContext);
+    const {pathname} = useLocation();
+
     return (
         <div className={style.nav_container}>
             <Link className={'item_nav'} to={`/${Routes.HOME}`}>Home</Link>
             <Link className={'item_nav'} to={`/${Routes.CATEGORY}`}>Category</Link>
-            <span>Current page - {location.pathname}</span>
+            <span>Current page - {pathname}</span>
         </div>
     )
 }

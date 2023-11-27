@@ -1,32 +1,33 @@
 import React, {useContext} from 'react';
-import style from './CategoryPage.module.css';
 import {H1} from "../../../general/style/components/buttons";
-import {NavCategoryItem} from "../../../general/style/components/items";
 import CocktailShort from "../../../general/component/CocktailShort";
 import {AppContext} from "../../../general/context/context";
+import {useHistory} from "react-router-dom";
 
-const CategoryPage = (props) => {
+const CategoryPage = () => {
     const context = useContext(AppContext);
-    const categoryCocktails = context.categoryCocktails;
+    const history = useHistory();
     return (
-        <div className='container'>
+        <div className={'container'}>
             <H1>Select category</H1>
-            <div className='row'>
-                <nav className='navbar navbar-expand-lg bg-body-tertiary'>
-                    <ul className='navbar-nav'>
+            <div className="row">
+                <nav className="navbar navbar-expand-lg bg-body-tertiary">
+                    <ul className="navbar-nav">
                         {
                             context.categories.map((category) => {
-                                return <li className='nav-item'> role='button'
-                                    <a className='nav-link'>
-                                        <NavCategoryItem
-                                            key={category}
-                                            onClick={() => {
-                                                context.getByCategory(category)
-                                            }}>
-                                            {category}
-                                        </NavCategoryItem>
+                                return <li className="nav-item" role="button"
+                                           onClick={() => {
+                                               history.push('/category/' + category.slug);
+                                           }}
+                                >
+                                    <a className="nav-link"
+                                       key={category.slug}
+                                        /*onClick={() => {
+                                            context.getByCategory(category)
+                                        }}*/>
+                                        {category.name}
                                     </a>
-                                </li>;
+                                </li>
                             })
                         }
                     </ul>
@@ -45,6 +46,5 @@ const CategoryPage = (props) => {
         </div>
     )
 }
-
 
 export default CategoryPage;

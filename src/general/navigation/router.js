@@ -17,7 +17,7 @@ function Router() {
 return(
     <Switch>
         <Route path={['/', `/${HOME}`]} component={HomePage} exact/>
-        <Route path={`/${CATEGORY}`} component={CategoryPage} exact/>
+        <Route path={`/${CATEGORY}`} component={CategoryPage}/>
         <Route path={`/${COCKTAIL}`} component={CocktailPage}/>
         <Route component={ErrorPage}/>
     </Switch>
