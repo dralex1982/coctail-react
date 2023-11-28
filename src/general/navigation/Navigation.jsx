@@ -1,8 +1,7 @@
-import React, {useContext} from "react";
+import React from "react";
 import * as Routes from './router';
 import style from './Navigation.module.css';
 import './Navigation.css'
-import {AppContext} from "../context/context";
 import {Link, useLocation} from "react-router-dom";
 
 function Navigation() {

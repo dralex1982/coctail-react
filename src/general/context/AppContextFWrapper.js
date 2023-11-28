@@ -3,7 +3,7 @@ import {AppContext} from "./context";
 import {getByCategory, getCategories, getCocktail, getRandomCocktail} from "../../features/api";
 import {Cocktail} from "../../features/model/Cocktail";
 import CocktailShort from "../../features/model/CocktailShort";
-import {useLocation} from "react-router-dom/cjs/react-router-dom";
+import {useLocation} from "react-router-dom";
 
 const AppContextFWrapper = ({children}) => {
     const [page, setPage] = useState('home');
@@ -12,15 +12,16 @@ const AppContextFWrapper = ({children}) => {
     const [categoryCocktails, setCategoryCocktails] = useState([]);
 
     const {pathname} = useLocation();
+
     useEffect(()=>{
         if(pathname.startsWith('/category')){
             const categorySlug = pathname.split('/')[2];
             if(categorySlug){
-                const categoryName = categories.find(
+                const category = categories.find(
                     (item)=> item.slug === categorySlug
-                ).name;
-                if(categoryName){
-                    getByCategoryApi(categoryName);
+                );
+                if(category){
+                    getByCategoryApi(category.name);
                 }
             }
         }
@@ -28,7 +29,6 @@ const AppContextFWrapper = ({children}) => {
 
     function getRandomCocktailApi(){
         getRandomCocktail().then((result)=>{
-            console.log(result);
             const resObj = JSON.parse(result);
             const newCocktail = new Cocktail(resObj.drinks[0]);
             setCocktail(newCocktail);
@@ -36,14 +36,14 @@ const AppContextFWrapper = ({children}) => {
     }
     function getCategoriesApi(){
         getCategories().then((result)=>{
-            console.log(result);
             const resObj = JSON.parse(result);
             const categoriesArr = resObj.drinks.map(
                 (item)=> {
                     const withoutSlash = item.strCategory.replace(" / ","_");
+                    const withoutSpace = withoutSlash.replace(" ", "");
                     return {
                         name: item.strCategory,
-                        slug: withoutSlash.toLowerCase()
+                        slug: withoutSpace.toLowerCase()
                     }}
             )
             setCategories(categoriesArr);
@@ -54,7 +54,6 @@ const AppContextFWrapper = ({children}) => {
     * */
     function getByCategoryApi(categoryName){
         getByCategory(categoryName).then((result)=>{
-            console.log(result);
             const resObj = JSON.parse(result);
             const cocktailList = resObj.drinks.map(item => new CocktailShort(item));
             setCategoryCocktails(cocktailList);
