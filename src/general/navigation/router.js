@@ -1,8 +1,8 @@
-import HomePage from "../../features/home_page/presentation/HomePage";
-import CategoryPage from "../../features/category_page/presentation/CategoryPage";
-import ErrorPage from "../../features/ErrorPage";
+import HomePage from "../../cocktails/presentation/pages/home_page/HomePage";
+import CategoryPage from "../../cocktails/presentation/pages/category_page/CategoryPage";
+import ErrorPage from "../../cocktails/presentation/pages/ErrorPage";
 import React from "react";
-import CocktailPage from "../../features/cocktailPage/presentation/CocktailPage";
+import CocktailPage from "../../cocktails/presentation/pages/cocktailPage/CocktailPage";
 import {Route, Routes} from "react-router-dom";
 
 //home, category, error_page
