@@ -14,7 +14,6 @@ function CocktailPage() {
     }, [search]);
     return (
         <>
-            <h1>Cocktail id - {searchParams.get('id')}</h1>
             {(cocktail) ? <CocktailComponent cocktail={cocktail}/>:<h3>Loading...</h3>}
         </>
     );
