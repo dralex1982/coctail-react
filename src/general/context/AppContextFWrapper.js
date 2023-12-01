@@ -38,7 +38,6 @@ const AppContextFWrapper = ({children}) => {
     function getCategoriesApi(){
         getCategories().then((result)=>{
             const resObj = JSON.parse(result);
-            convertCategoryArray()
             const categoriesArr = convertCategoryArray(resObj.drinks)
             setCategories(categoriesArr);
         })
