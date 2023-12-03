@@ -5,22 +5,29 @@ import * as Icons from "react-bootstrap-icons";
 import CocktailComponent from "../../../../general/component/CocktailComponent";
 import {useDispatch, useSelector} from "react-redux";
 import {getCategoriesAction, getRandomCocktailAction} from "../../redux/asyncActions";
+import {Alert} from "react-bootstrap";
+import {Alarm} from "react-bootstrap-icons";
 
 const HomePage = () => {
-    const cocktail = useSelector(store => store.cocktailRandom);
     const dispatch = useDispatch();
+    const cocktail = useSelector(store => store.cocktailRandom);
 
     useEffect(() => {
-        getRandomCocktailAction(dispatch);
-        getCategoriesAction(dispatch);
+        dispatch(getRandomCocktailAction());
+        dispatch(getCategoriesAction());
     }, []);
+
+    const error = useSelector(store=> store.errorMessage);
+    if(error){
+        return <Alert>{error}</Alert>
+    }
 
     if (cocktail)
         return (
             <>
                 <H1>Home page</H1>
                 <Button className={'btn btn-success'} onClick={() => {
-                    getRandomCocktailAction(dispatch);
+                    dispatch(getRandomCocktailAction());
                 }
                 }>
                     <Icons.ArrowClockwise size={20}/>Get random cocktail
@@ -29,7 +36,7 @@ const HomePage = () => {
             </>
         )
     else
-        return <h3>Loading</h3>
+        return <h3>Loading...</h3>
 }
 
 export default HomePage;

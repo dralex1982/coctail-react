@@ -1,20 +1,36 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {useLocation} from "react-router-dom";
 import CocktailComponent from "../../../../general/component/CocktailComponent";
-import {AppContext} from "../../../../general/context/context";
+import {useDispatch, useSelector} from "react-redux";
+import {getCocktailByIdAction} from "../../redux/asyncActions";
+import {setDetailedCocktail} from "../../redux/actions";
+import {Alert} from "react-bootstrap";
 
 function CocktailPage() {
     const {search} = useLocation();
     const searchParams = new URLSearchParams(search);
-    const {cocktail, getCocktailById} = useContext(AppContext);
+    const dispatch = useDispatch();
+    const cocktailDetailed = useSelector(store => store.cocktailDetailed);
 
     useEffect(() => {
-        if (searchParams.get('id'))
-            getCocktailById(searchParams.get('id'));
+        return () => {
+            dispatch(setDetailedCocktail());
+        }
+    }, []);
+
+    useEffect(() => {
+        if (searchParams.get('id')) {
+            dispatch(getCocktailByIdAction(searchParams.get('id')));
+        }
     }, [search]);
+
+    const error = useSelector(store => store.errorMessage);
+    if (error) {
+        return <Alert>{error}</Alert>
+    }
     return (
         <>
-            {(cocktail) ? <CocktailComponent cocktail={cocktail}/>:<h3>Loading...</h3>}
+            {(cocktailDetailed) ? <CocktailComponent cocktail={cocktailDetailed}/> : <h3>Loading...</h3>}
         </>
     );
 }
