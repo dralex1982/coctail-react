@@ -1,5 +1,4 @@
 //item => {strCategory: " Category "}
-import * as categoryStrArray from "react-bootstrap/ElementChildren";
 
 export default function convertCategoryArray(categoryStrArray){
     if (!categoryStrArray) return [];

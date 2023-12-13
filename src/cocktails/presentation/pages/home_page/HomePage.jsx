@@ -1,13 +1,10 @@
 import React, {useContext, useEffect} from 'react';
 import {Button, H1} from "../../../../general/style/components/buttons";
-import {AppContext} from "../../../../general/context/context";
 import * as Icons from "react-bootstrap-icons";
 import CocktailComponent from "../../../../general/component/CocktailComponent";
 import {useDispatch, useSelector} from "react-redux";
 import {getCategoriesAction, getRandomCocktailAction} from "../../redux/asyncActions";
 import {Alert} from "react-bootstrap";
-import {Alarm} from "react-bootstrap-icons";
-
 const HomePage = () => {
     const dispatch = useDispatch();
     const cocktail = useSelector(store => store.cocktailRandom);
