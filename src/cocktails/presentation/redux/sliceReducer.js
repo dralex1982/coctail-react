@@ -1,5 +1,8 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {getByCategoryAction, getCategoriesAction, getCocktailByIdAction, getRandomCocktailAction} from "./asyncActions";
+import convertCategoryArray from "../../domain/use_cases/convertCategoryArray";
+import {Cocktail} from "../../domain/model/Cocktail";
+import CocktailShort from "../../domain/model/CocktailShort";
 
 const reducer = createSlice(
     {
